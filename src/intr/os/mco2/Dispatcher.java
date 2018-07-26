@@ -11,15 +11,21 @@ package intr.os.mco2;
  */
 public class Dispatcher {
     //the "user". decides how many trains to send.
+    private Area[] areas;
     
     public void StationInit(){
-        Area[] areas = new Area[16];
+        areas = new Area[16];
         
         for(int i = 0; i < 16; i++){
             if(i % 2 == 0){
                 areas[i] = new Station();
+                
             }else{
                 areas[i] = new EmptyArea();
+            }
+            areas[i].nextArea = areas[i+1];
+            if(i == 15){
+                areas[i].nextArea = areas[0];
             }
         }
     }
@@ -35,5 +41,7 @@ public class Dispatcher {
         }
     }
     
-    
+    public Area[] getAreas(){
+        return this.areas;
+    }
 }

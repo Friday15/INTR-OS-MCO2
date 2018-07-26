@@ -12,6 +12,7 @@ package intr.os.mco2;
 public abstract class Area {
     protected boolean trainPresent;     //if a train is currently on the area or not
     protected Train currentTrain;       //the train currently on it
+    protected Area nextArea;
     
     public void TrainArrives(Train train){
         this.trainPresent = true;
@@ -22,4 +23,5 @@ public abstract class Area {
         this.trainPresent = false;
         this.currentTrain = null;
     }
+    
 }

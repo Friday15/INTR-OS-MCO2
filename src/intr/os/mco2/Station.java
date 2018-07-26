@@ -5,23 +5,33 @@
  */
 package intr.os.mco2;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Ashen One
  */
 public class Station extends Area{
-    private Passenger[] passengers;     //list of passengers in station
-    private StationThread stationThread;    //thread where passengers are "created"
+    private ArrayList <Passenger> passengers;     //list of passengers in station
     
     //stations are monitors for train threads
-    //passengers keep arriving at random(?)
     //when a train arrives, it will acquire the lock on the station.
-    //train will wait(), passengers will get notified (notifyall()) and load on the train
+    //train will wait, passengers will get notified (notifyall()) and load on the train
     //
     public Station(){
         NoTrain();
-        stationThread = new StationThread();
-        stationThread.run();
+        passengers = new ArrayList();
     }
     
+    public void CreatePassengers() throws InterruptedException{
+        Passenger passenger = new Passenger(this);
+        passengers.add(passenger);
+        passenger.run();
+        System.out.println("After run");
+        passenger.StationWaitForTrain(this);
+    }
+    
+    public void PassengerBoarded(Passenger passenger){
+        passengers.remove(passenger);
+    }
 }

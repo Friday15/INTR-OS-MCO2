@@ -14,6 +14,7 @@ public class Train implements Runnable{
     //trains are threads and they acquire locks on stations
     private Area currentArea;
     private final int totalCount; //number of total seats
+    private int currCount;
     
     public Train(int totalCount){
         this.totalCount = totalCount;
@@ -24,9 +25,15 @@ public class Train implements Runnable{
     }
     
     public void StationLoadTrain(Station station, int count){
-        
+        if(count == 0){
+            this.currentArea = station.nextArea;
+        }
     }
 
+    public int getCurrCount(){
+        return this.currCount;
+    }
+    
     @Override
     public void run() {
         
