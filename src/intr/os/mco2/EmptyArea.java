@@ -13,7 +13,7 @@ public class EmptyArea extends Area{
     //An area where trains just pass through. Not a station
     
     public EmptyArea(){
-        NoTrain();
+        RemoveTrain();
     }
 
 }

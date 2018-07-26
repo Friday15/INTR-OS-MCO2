@@ -20,7 +20,7 @@ public class Passenger implements Runnable{
     public void StationWaitForTrain(Station station) throws InterruptedException{   //only boards when a train is present and it has available seats
         synchronized(station){
             if(station.trainPresent == false){
-                System.out.println("waiting...");
+                System.out.println("waiting...");           //wait on station, if train is present, gets notified and starts boarding
             }else{
                 station.CreatePassengers();
             }
@@ -30,7 +30,7 @@ public class Passenger implements Runnable{
     
     public void StationOnBoard(Station station){        //to notify that the patient has boarded a train
         synchronized(station.currentTrain){
-            station.currentTrain.notify();
+            station.currentTrain.notify();   
         }
         
         if(station.currentTrain.getCurrCount() == 0){

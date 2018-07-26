@@ -19,7 +19,7 @@ public abstract class Area {
         this.currentTrain = train;
     }
     
-    public void NoTrain(){
+    public void RemoveTrain(){
         this.trainPresent = false;
         this.currentTrain = null;
     }

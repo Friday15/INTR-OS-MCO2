@@ -24,9 +24,13 @@ public class Train implements Runnable{
         this.currentArea = area;
     }
     
-    public void StationLoadTrain(Station station, int count){
-        if(count == 0){
-            this.currentArea = station.nextArea;
+    public void StationLoadTrain(Station station, int count) throws InterruptedException{
+        synchronized(station){
+            //acquire lock of station
+        }
+        
+        if(count == 0 || station.getPassengers().isEmpty()){
+            this.currentArea = station.nextArea;        //moves to next area
         }
     }
 

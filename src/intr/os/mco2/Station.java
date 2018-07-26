@@ -19,7 +19,7 @@ public class Station extends Area{
     //train will wait, passengers will get notified (notifyall()) and load on the train
     //
     public Station(){
-        NoTrain();
+        RemoveTrain();
         passengers = new ArrayList();
     }
     
@@ -33,5 +33,9 @@ public class Station extends Area{
     
     public void PassengerBoarded(Passenger passenger){
         passengers.remove(passenger);
+    }
+    
+    public ArrayList <Passenger> getPassengers(){
+        return this.passengers;
     }
 }

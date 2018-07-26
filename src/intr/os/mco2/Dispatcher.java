@@ -37,7 +37,7 @@ public class Dispatcher {
         if(area instanceof Station){
             ((Station) area).TrainArrives(train);
         }else{
-            area.NoTrain();
+            area.RemoveTrain();
         }
     }
     
