@@ -23,10 +23,12 @@ public class Dispatcher {
             }else{
                 areas[i] = new EmptyArea();
             }
-            areas[i].nextArea = areas[i+1];
+            
             if(i == 15){
                 areas[i].nextArea = areas[0];
-            }
+            }else
+                areas[i].nextArea = areas[i+1];
+                   
         }
     }
     
@@ -37,7 +39,7 @@ public class Dispatcher {
         if(area instanceof Station){
             ((Station) area).TrainArrives(train);
         }else{
-            area.RemoveTrain();
+            area.TrainArrives(train);
         }
     }
     

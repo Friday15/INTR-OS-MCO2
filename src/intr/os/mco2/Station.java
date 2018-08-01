@@ -21,14 +21,18 @@ public class Station extends Area{
     public Station(){
         RemoveTrain();
         passengers = new ArrayList();
+        this.LockInit();
+        this.CondInit();
     }
     
     public void CreatePassengers() throws InterruptedException{
+        this.LockAcquire();
         Passenger passenger = new Passenger(this);
         passengers.add(passenger);
         passenger.run();
+        this.LockRelease();
         System.out.println("After run");
-        passenger.StationWaitForTrain(this);
+
     }
     
     public void PassengerBoarded(Passenger passenger){

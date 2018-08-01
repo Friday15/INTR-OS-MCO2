@@ -15,35 +15,51 @@ public class Passenger implements Runnable{
     
     public Passenger(Station currentStation){
         this.currentStation = currentStation;
+
     }
     
-    public void StationWaitForTrain(Station station) throws InterruptedException{   //only boards when a train is present and it has available seats
-        synchronized(station){
-            if(station.trainPresent == false){
-                System.out.println("waiting...");           //wait on station, if train is present, gets notified and starts boarding
-            }else{
-                station.CreatePassengers();
-            }
-            station.wait();
-        }
+    public void StationWaitForTrain(Station station){   //only boards when a train is present and it has available seats
+   
+        System.out.println("waiting...");           //wait on station, if train is present, gets notified and starts boarding
+        station.LockAcquire();
+        
+        station.CondWait();
+        System.out.println("meep2");
+        station.LockRelease();
     }
     
     public void StationOnBoard(Station station){        //to notify that the patient has boarded a train
-        synchronized(station.currentTrain){
-            station.currentTrain.notify();   
-        }
         
-        if(station.currentTrain.getCurrCount() == 0){
-            station.currentTrain.setArea(station.nextArea);
-        }
+        System.out.println("boarding...");
+        station.LockAcquire();
+        station.PassengerBoarded(this);
+        station.LockRelease();
+        
+        station.currentTrain.LockAcquire();
+        station.currentTrain.subCurrCount();
+        station.currentTrain.LockRelease();
+        
+        currentStation = null;                          //inside the train already
     }
 
     @Override
     public void run() {
-        try {
+        
+        //currentStation.TrainArrives(new Train(10));
+
+        while(currentStation.trainPresent == false){
             StationWaitForTrain(currentStation);
-        } catch (InterruptedException ex) {
-            System.out.println(ex);
+            
         }
+        
+        while(currentStation.trainPresent == true && currentStation.currentTrain.getCurrCount() > 0){
+            StationOnBoard(currentStation);
+            
+        }
+//        if(currentStation.currentTrain.getCurrCount() == 0){                  //if train is full attempt to move to next area
+//            currentStation.currentTrain.setArea(currentStation.nextArea);
+//        }
+        
     }
+    
 }

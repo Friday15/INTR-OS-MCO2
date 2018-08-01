@@ -5,6 +5,11 @@
  */
 package intr.os.mco2;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Ashen One
@@ -13,6 +18,8 @@ public abstract class Area {
     protected boolean trainPresent;     //if a train is currently on the area or not
     protected Train currentTrain;       //the train currently on it
     protected Area nextArea;
+    protected ReentrantLock lock;
+    protected Condition cond;
     
     public void TrainArrives(Train train){
         this.trainPresent = true;
@@ -24,4 +31,35 @@ public abstract class Area {
         this.currentTrain = null;
     }
     
+    public void LockInit(){
+        this.lock = new ReentrantLock();
+    }
+    
+    public void LockAcquire(){
+        this.lock.lock();
+    }
+    
+    public void LockRelease(){
+        this.lock.unlock();
+    }
+    
+    public void CondInit(){
+        cond = this.lock.newCondition();
+    }
+    
+    public void CondWait(){
+        try {
+            cond.await();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Area.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void CondSignal(){
+        cond.signal();
+    }
+    
+    public void CondBroadcast(){
+        cond.signalAll();
+    }
 }
