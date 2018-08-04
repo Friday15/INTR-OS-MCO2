@@ -6,6 +6,7 @@
 package intr.os.mco2;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
@@ -24,13 +25,10 @@ public class Train implements Runnable{
     private int currCount;
     private ReentrantLock lock;
     private Condition trainCond;
-    private ArrayList <Passenger> passengers;                               //maybe need this for passengers leaving the train???
     
     public Train(int totalCount){
         this.totalCount = totalCount;
         this.currCount = totalCount;
-        System.out.println("total count: " + this.totalCount);
-        System.out.println("current count: " + this.currCount);
         LockInit();
         CondInit();
     }
@@ -43,10 +41,24 @@ public class Train implements Runnable{
         station.LockAcquire();
 
         station.TrainArrives(this);
+        if(this.totalCount - this.currCount > 0){                               //checks if a passenger is on board
+            Random rand2 = new Random();
+            int passengerChance = rand2.nextInt(this.totalCount-this.currCount)+1;      //random number of passengers to disembark
+        
+            for(int i = 0; i < passengerChance; i++){
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Train.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               this.addCurrCount();
+               System.out.println("passenger disembark");
+            }
+        }
         station.CondBroadcast();
-        System.out.println("train is waiting");
+        System.out.println("train is waiting...");
         station.CondWait();
-        System.out.println("train is awokened");
+        System.out.println("train is awokened!");
         station.LockRelease();
     }
 
@@ -101,12 +113,16 @@ public class Train implements Runnable{
     
     @Override
     public void run() {
-        
-        //currentArea.getPassengers().isEmpty()
-        while(this.currCount == 0 || !(currentArea instanceof Station)){
+        boolean disembark = false;
+        Random rand = new Random();
+        int disembarkChance = rand.nextInt(100)+1;                  //chance for a passenger to disembark
+        if(disembarkChance % 2 == 0){
+            disembark = true;
+        }
+
+        while((this.currCount == 0 && disembark == false )|| !(currentArea instanceof Station)){
 
             if(currentArea.nextArea.trainPresent == false){
-                System.out.println("potato");
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException ex) {
@@ -115,11 +131,9 @@ public class Train implements Runnable{
                 
                 currentArea.RemoveTrain();
                 this.currentArea = currentArea.nextArea;        //moves to next area
-                
                 System.out.println("moved to next area");
 
             }
-            System.out.println("tomato");
         }
         
         if(currentArea instanceof Station){

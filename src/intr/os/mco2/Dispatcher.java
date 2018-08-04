@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Dispatcher {
     //the "user". decides how many trains to send.
     private Area[] areas;
-    private int trainCount;
+    private int trainCount = 0;
     
     public Dispatcher(){
         StationInit();
@@ -45,6 +45,7 @@ public class Dispatcher {
     public void CreateTrain(Area area, int count){
         Train train = new Train(count);
         System.out.println("created train");
+        trainCount++;
         
         area.TrainArrives(train);
         train.setArea(area);
@@ -65,7 +66,15 @@ public class Dispatcher {
         return area.currentTrain;
     }
     
+    public int getTrainCount(){
+        return this.trainCount;
+    }
+    
     public ArrayList <Passenger> getPassengersAtStation(Station station){
         return station.getPassengers();
+    }
+    
+    public void UpdateView(){
+        
     }
 }

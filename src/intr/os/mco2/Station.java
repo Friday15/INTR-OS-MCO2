@@ -34,7 +34,6 @@ public class Station extends Area{
         passengerThread.start();
         
         this.LockRelease();
-        System.out.println("After run");
 
     }
     

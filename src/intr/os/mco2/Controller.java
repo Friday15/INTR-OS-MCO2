@@ -32,7 +32,7 @@ public class Controller {
             Area chosenArea;
             if(rv.getAreaList().isSelectionEmpty() == false){
                 chosenArea = disp.getArea(rv.getAreaList().getSelectedIndex());
-                System.out.println("selected index: "+rv.getAreaList().getSelectedIndex());
+
                 if(chosenArea instanceof Station){
                     System.out.println("created passenger");
                     ((Station) chosenArea).CreatePassengers();
@@ -52,7 +52,7 @@ public class Controller {
                 
                 if(chosenArea.trainPresent == false && chosenArea.currentTrain == null){
                     int chosenTotalSeats = (Integer) rv.getSeatSpinner().getValue();
-                    System.out.println("yeeted");
+                    rv.getStatusLabels().get(disp.getTrainCount()).setText("hi");
                     disp.CreateTrain(chosenArea, chosenTotalSeats);
                     
                 }

@@ -52,12 +52,9 @@ public class Passenger implements Runnable{
 
     @Override
     public void run() {
-        
-        //currentStation.TrainArrives(new Train(10));
 
         if(currentStation.trainPresent == false){
-            StationWaitForTrain(currentStation);
-            
+            StationWaitForTrain(currentStation);   
         }
         
         try {
@@ -70,9 +67,6 @@ public class Passenger implements Runnable{
             StationOnBoard(currentStation);
             
         }
-//        if(currentStation.currentTrain.getCurrCount() == 0){                  //if train is full attempt to move to next area
-//            currentStation.currentTrain.setArea(currentStation.nextArea);
-//        }
         
     }
     
