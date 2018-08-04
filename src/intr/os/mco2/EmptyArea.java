@@ -14,6 +14,8 @@ public class EmptyArea extends Area{
     
     public EmptyArea(){
         RemoveTrain();
+        this.LockInit();
+        this.CondInit();
     }
 
 }

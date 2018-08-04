@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Dispatcher {
     //the "user". decides how many trains to send.
     private Area[] areas;
+    private int trainCount;
     
     public Dispatcher(){
         StationInit();
@@ -29,13 +30,16 @@ public class Dispatcher {
             }else{
                 areas[i] = new EmptyArea();
             }
-            
+        }
+        
+        for(int i = 0; i < 16; i++){
             if(i == 15){
                 areas[i].nextArea = areas[0];
-            }else
+            }else{
                 areas[i].nextArea = areas[i+1];
-                   
+            }
         }
+        
     }
     
     public void CreateTrain(Area area, int count){

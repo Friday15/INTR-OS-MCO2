@@ -27,7 +27,7 @@ public class Passenger implements Runnable{
         station.LockAcquire();
         
         station.CondWait();
-        System.out.println("meep2");
+
         station.LockRelease();
     }
     
@@ -40,8 +40,13 @@ public class Passenger implements Runnable{
         
         station.currentTrain.LockAcquire();
         station.currentTrain.subCurrCount();
+        if(station.currentTrain.getCurrCount() == 0){
+            station.LockAcquire();
+            station.CondSignal();
+            station.LockRelease();
+        }
         station.currentTrain.LockRelease();
-        
+
         currentStation = null;                          //inside the train already
     }
 

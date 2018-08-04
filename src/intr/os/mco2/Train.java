@@ -41,12 +41,12 @@ public class Train implements Runnable{
     
     public void StationLoadTrain(Station station, int count){
         station.LockAcquire();
-        
-        
+
         station.TrainArrives(this);
         station.CondBroadcast();
+        System.out.println("train is waiting");
         station.CondWait();
-        
+        System.out.println("train is awokened");
         station.LockRelease();
     }
 
@@ -104,25 +104,27 @@ public class Train implements Runnable{
         
         //currentArea.getPassengers().isEmpty()
         while(this.currCount == 0 || !(currentArea instanceof Station)){
-            if(((Station)currentArea).getPassengers().isEmpty()){
-                
-                if(currentArea.nextArea.trainPresent == false){
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Train.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    currentArea.nextArea.LockAcquire();
-                    this.currentArea = currentArea.nextArea;        //moves to next area
-                    currentArea.nextArea.LockRelease();
-                }else{
 
+            if(currentArea.nextArea.trainPresent == false){
+                System.out.println("potato");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Train.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                currentArea.RemoveTrain();
+                this.currentArea = currentArea.nextArea;        //moves to next area
+                
+                System.out.println("moved to next area");
+
             }
+            System.out.println("tomato");
         }
         
         if(currentArea instanceof Station){
-            StationLoadTrain((Station)currentArea, this.currCount);         
+            StationLoadTrain((Station)currentArea, this.currCount);
+            this.run();
         }
     }
 }
