@@ -25,11 +25,14 @@ public class Station extends Area{
         this.CondInit();
     }
     
-    public void CreatePassengers() throws InterruptedException{
+    public void CreatePassengers(){
         this.LockAcquire();
         Passenger passenger = new Passenger(this);
         passengers.add(passenger);
-        passenger.run();
+        
+        Thread passengerThread = new Thread(passenger);
+        passengerThread.start();
+        
         this.LockRelease();
         System.out.println("After run");
 

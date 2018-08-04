@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * 
  *
  * @author Ashen One
  */
@@ -28,6 +29,10 @@ public class Train implements Runnable{
     public Train(int totalCount){
         this.totalCount = totalCount;
         this.currCount = totalCount;
+        System.out.println("total count: " + this.totalCount);
+        System.out.println("current count: " + this.currCount);
+        LockInit();
+        CondInit();
     }
     
     public void setArea(Area area){
@@ -37,16 +42,10 @@ public class Train implements Runnable{
     public void StationLoadTrain(Station station, int count){
         station.LockAcquire();
         
-        if(count == 0 || station.getPassengers().isEmpty()){
-            if(station.nextArea.trainPresent == false){
-                this.currentArea = station.nextArea;        //moves to next area
-            }else{
-                
-            }
-        }else{
-            station.trainPresent = true;
-            station.currentTrain = this;
-        }
+        
+        station.TrainArrives(this);
+        station.CondBroadcast();
+        station.CondWait();
         
         station.LockRelease();
     }
@@ -65,6 +64,10 @@ public class Train implements Runnable{
     
     public int getTotalCount(){
         return this.totalCount;
+    }
+    
+    public void LockInit(){
+        this.lock = new ReentrantLock();
     }
     
     public void LockAcquire(){
@@ -98,10 +101,28 @@ public class Train implements Runnable{
     
     @Override
     public void run() {
-        while(true){
-            if(currentArea instanceof Station){
-                StationLoadTrain((Station)currentArea, 10);
+        
+        //currentArea.getPassengers().isEmpty()
+        while(this.currCount == 0 || !(currentArea instanceof Station)){
+            if(((Station)currentArea).getPassengers().isEmpty()){
+                
+                if(currentArea.nextArea.trainPresent == false){
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Train.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    currentArea.nextArea.LockAcquire();
+                    this.currentArea = currentArea.nextArea;        //moves to next area
+                    currentArea.nextArea.LockRelease();
+                }else{
+
+                }
             }
+        }
+        
+        if(currentArea instanceof Station){
+            StationLoadTrain((Station)currentArea, this.currCount);         
         }
     }
 }

@@ -5,6 +5,9 @@
  */
 package intr.os.mco2;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Ashen One
@@ -47,12 +50,18 @@ public class Passenger implements Runnable{
         
         //currentStation.TrainArrives(new Train(10));
 
-        while(currentStation.trainPresent == false){
+        if(currentStation.trainPresent == false){
             StationWaitForTrain(currentStation);
             
         }
         
-        while(currentStation.trainPresent == true && currentStation.currentTrain.getCurrCount() > 0){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if(currentStation.trainPresent == true && currentStation.currentTrain.getCurrCount() > 0){
             StationOnBoard(currentStation);
             
         }

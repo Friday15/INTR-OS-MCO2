@@ -5,6 +5,8 @@
  */
 package intr.os.mco2;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Ashen One
@@ -12,6 +14,10 @@ package intr.os.mco2;
 public class Dispatcher {
     //the "user". decides how many trains to send.
     private Area[] areas;
+    
+    public Dispatcher(){
+        StationInit();
+    }
     
     public void StationInit(){
         areas = new Area[16];
@@ -34,16 +40,28 @@ public class Dispatcher {
     
     public void CreateTrain(Area area, int count){
         Train train = new Train(count);
+        System.out.println("created train");
+        
+        area.TrainArrives(train);
         train.setArea(area);
         
-        if(area instanceof Station){
-            ((Station) area).TrainArrives(train);
-        }else{
-            area.TrainArrives(train);
-        }
+        Thread trainThread = new Thread(train);
+        trainThread.start();
     }
     
     public Area[] getAreas(){
         return this.areas;
+    }
+    
+    public Area getArea(int num){
+        return this.getAreas()[num];
+    }
+    
+    public Train getTrain(Area area){
+        return area.currentTrain;
+    }
+    
+    public ArrayList <Passenger> getPassengersAtStation(Station station){
+        return station.getPassengers();
     }
 }
