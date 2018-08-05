@@ -23,9 +23,9 @@ public class Station extends Area{
         this.LockInit();
         this.CondInit();
         
-        pm = new PassengerMaker();
-        Thread pmThread = new Thread(pm);
-        pmThread.start();
+//        pm = new PassengerMaker();
+//        Thread pmThread = new Thread(pm);
+//        pmThread.start();
     }
     
     public void CreatePassengers(){
