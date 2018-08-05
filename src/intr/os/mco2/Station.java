@@ -12,8 +12,7 @@ import java.util.ArrayList;
  * @author Ashen One
  */
 public class Station extends Area{
-    private ArrayList <Passenger> passengers;     //list of passengers in station
-    
+    private PassengerMaker pm;
     //stations are monitors for train threads
     //when a train arrives, it will acquire the lock on the station.
     //train will wait, passengers will get notified (notifyall()) and load on the train
@@ -23,6 +22,10 @@ public class Station extends Area{
         passengers = new ArrayList();
         this.LockInit();
         this.CondInit();
+        
+        pm = new PassengerMaker();
+        Thread pmThread = new Thread(pm);
+        pmThread.start();
     }
     
     public void CreatePassengers(){
@@ -41,7 +44,4 @@ public class Station extends Area{
         passengers.remove(passenger);
     }
     
-    public ArrayList <Passenger> getPassengers(){
-        return this.passengers;
-    }
 }

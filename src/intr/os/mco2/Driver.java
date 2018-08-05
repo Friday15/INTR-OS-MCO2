@@ -5,9 +5,6 @@
  */
 package intr.os.mco2;
 
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -19,8 +16,10 @@ public class Driver {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InterruptedException {
-        Dispatcher disp = new Dispatcher();
-        Controller cont = new Controller(disp);
+        HomeScreen home = new HomeScreen();
+        home.setVisible(true);
+        
+        
 
 //        Scanner memes = new Scanner(System.in);
 //        Dispatcher disp = new Dispatcher();

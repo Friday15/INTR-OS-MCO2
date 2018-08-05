@@ -116,12 +116,21 @@ public class Train implements Runnable{
         boolean disembark = false;
         Random rand = new Random();
         int disembarkChance = rand.nextInt(100)+1;                  //chance for a passenger to disembark
-        if(disembarkChance % 2 == 0){
+        if(disembarkChance % 3 == 0){
             disembark = true;
         }
-
-        while((this.currCount == 0 && disembark == false )|| !(currentArea instanceof Station)){
-
+        System.out.println(disembark);
+        
+        while((this.currCount == 0 && disembark == false && currentArea.getPassengers() != null)|| !(currentArea instanceof Station)){
+            
+            if(currentArea.getPassengers() != null){
+                if(!(currentArea.getPassengers().isEmpty())){                   //move if instanceof EmptyArea
+                    System.out.println("found passengers");                     //move if station but passenger list found and is empty
+                    break;
+                }
+            }
+            
+            System.out.println(currentArea);
             if(currentArea.nextArea.trainPresent == false){
                 try {
                     Thread.sleep(2000);
@@ -129,10 +138,25 @@ public class Train implements Runnable{
                     Logger.getLogger(Train.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
+                currentArea.LockAcquire();
+                if(currentArea.lock.hasWaiters(currentArea.cond))
+                    currentArea.CondSignal();
+                currentArea.LockRelease();
+                
                 currentArea.RemoveTrain();
                 this.currentArea = currentArea.nextArea;        //moves to next area
                 System.out.println("moved to next area");
-
+                
+                disembarkChance = rand.nextInt(100)+1;
+                if(disembarkChance % 3 == 0){
+                    disembark = true;
+                }
+            }else{
+                currentArea.nextArea.LockAcquire();
+                System.out.println("blocked by another train!");
+                currentArea.nextArea.CondWait();
+                System.out.println("no longer blocked by another train!");
+                currentArea.nextArea.LockRelease();
             }
         }
         

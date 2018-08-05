@@ -5,6 +5,7 @@
  */
 package intr.os.mco2;
 
+import java.util.ArrayList;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
  * @author Ashen One
  */
 public abstract class Area {
+    protected ArrayList <Passenger> passengers;     //list of passengers in station
     protected boolean trainPresent;     //if a train is currently on the area or not
     protected Train currentTrain;       //the train currently on it
     protected Area nextArea;
@@ -61,5 +63,9 @@ public abstract class Area {
     
     public void CondBroadcast(){
         cond.signalAll();
+    }
+    
+    public ArrayList <Passenger> getPassengers(){
+        return this.passengers;
     }
 }
