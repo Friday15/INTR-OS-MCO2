@@ -8,8 +8,10 @@ package intr.os.mco2;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
 
 /**
@@ -18,21 +20,28 @@ import javax.swing.JSpinner;
  */
 public class RailroadView extends javax.swing.JFrame implements Runnable {
 
-    private final Dispatcher dispatch;
+    private final Dispatcher disp;
     private final Controller cont;
     private ArrayList <JLabel> labels;
+    private ArrayList <JPanel> blocks;
+    private ArrayList <JLabel> blockLabels;
+    private ImageIcon thomas;
+    private ImageIcon thomasUp;
+    private ImageIcon thomasDown;
+    private ImageIcon thomasLeft;
     /**
      * Creates new form RailroadView
      */
     public RailroadView(Dispatcher disp, Controller cont) {
         initComponents();
-        this.dispatch = disp;
+        this.disp = disp;
         this.cont = cont;
         Thread guiThread = new Thread(this);
         guiThread.start();
         
         labels = new ArrayList();
-        
+        blocks = new ArrayList();
+        blockLabels = new ArrayList();
 //        for (Component component : statusPanel.getComponents()) {
 //            if(component instanceof JLabel){
 //                if(((JLabel)component).getText().contains("status")){
@@ -42,23 +51,18 @@ public class RailroadView extends javax.swing.JFrame implements Runnable {
 //            
 //        }
 
-        labels.add(trainLabel1);
-        labels.add(trainLabel2);
-        labels.add(trainLabel3);
-        labels.add(trainLabel4);
-        labels.add(trainLabel5);
-        labels.add(trainLabel6);
-        labels.add(trainLabel7);
-        labels.add(trainLabel8);            //kill me
-        labels.add(trainLabel9);
-        labels.add(trainLabel10);
-        labels.add(trainLabel1);
-        labels.add(trainLabel2);
-        labels.add(trainLabel3);
-        labels.add(trainLabel4);
-        labels.add(trainLabel5);
-        labels.add(trainLabel6);
+        addToLabels();
+        addToBlocks();
+        addToBlockLabels();
+        for(int i = 0; i < 16; i++)
+            labels.get(i).setText(((Integer)i).toString());
         
+        blockLabels.get(8).setText("yeeeeet");
+        thomas = new ImageIcon(new ImageIcon(getClass().getResource("Pictures\\thomas.png")).getImage());
+        thomasUp = new ImageIcon(new ImageIcon(getClass().getResource("Pictures\\thomas up.png")).getImage());
+        thomasDown = new ImageIcon(new ImageIcon(getClass().getResource("Pictures\\thomas down.png")).getImage());
+        thomasLeft = new ImageIcon(new ImageIcon(getClass().getResource("Pictures\\thomas left.png")).getImage());
+
     }
 
     /**
@@ -113,12 +117,38 @@ public class RailroadView extends javax.swing.JFrame implements Runnable {
         jLabel3 = new javax.swing.JLabel();
         railroadLayeredPane = new javax.swing.JLayeredPane();
         railroadDisplayPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        station1 = new javax.swing.JPanel();
+        station1Label = new javax.swing.JLabel();
+        empty1 = new javax.swing.JPanel();
+        empty1Label = new javax.swing.JLabel();
+        station2 = new javax.swing.JPanel();
+        station2Label = new javax.swing.JLabel();
+        empty2 = new javax.swing.JPanel();
+        empty2Label = new javax.swing.JLabel();
+        station3 = new javax.swing.JPanel();
+        station3Label = new javax.swing.JLabel();
+        empty3 = new javax.swing.JPanel();
+        empty3Label = new javax.swing.JLabel();
+        station4 = new javax.swing.JPanel();
+        station4Label = new javax.swing.JLabel();
+        empty4 = new javax.swing.JPanel();
+        empty4Label = new javax.swing.JLabel();
+        station5 = new javax.swing.JPanel();
+        station5Label = new javax.swing.JLabel();
+        empty5 = new javax.swing.JPanel();
+        empty5Label = new javax.swing.JLabel();
+        station6 = new javax.swing.JPanel();
+        station6Label = new javax.swing.JLabel();
+        empty6 = new javax.swing.JPanel();
+        empty6Label = new javax.swing.JLabel();
+        station7 = new javax.swing.JPanel();
+        station7Label = new javax.swing.JLabel();
+        empty7 = new javax.swing.JPanel();
+        empty7Label = new javax.swing.JLabel();
+        station8 = new javax.swing.JPanel();
+        station8Label = new javax.swing.JLabel();
+        empty8 = new javax.swing.JPanel();
+        empty8Label = new javax.swing.JLabel();
         backgroundGrass1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -415,89 +445,325 @@ public class RailroadView extends javax.swing.JFrame implements Runnable {
 
         railroadDisplayPanel.setLayout(null);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        station1.setOpaque(false);
+
+        javax.swing.GroupLayout station1Layout = new javax.swing.GroupLayout(station1);
+        station1.setLayout(station1Layout);
+        station1Layout.setHorizontalGroup(
+            station1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(station1Layout.createSequentialGroup()
+                .addComponent(station1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        station1Layout.setVerticalGroup(
+            station1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(station1Layout.createSequentialGroup()
+                .addComponent(station1Label)
+                .addGap(0, 120, Short.MAX_VALUE))
         );
 
-        railroadDisplayPanel.add(jPanel1);
-        jPanel1.setBounds(310, 70, 100, 100);
+        railroadDisplayPanel.add(station1);
+        station1.setBounds(80, 250, 100, 120);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        empty1.setOpaque(false);
 
-        railroadDisplayPanel.add(jPanel2);
-        jPanel2.setBounds(670, 70, 100, 100);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout empty1Layout = new javax.swing.GroupLayout(empty1);
+        empty1.setLayout(empty1Layout);
+        empty1Layout.setHorizontalGroup(
+            empty1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, empty1Layout.createSequentialGroup()
+                .addComponent(empty1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        empty1Layout.setVerticalGroup(
+            empty1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(empty1Layout.createSequentialGroup()
+                .addComponent(empty1Label)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        railroadDisplayPanel.add(jPanel3);
-        jPanel3.setBounds(1030, 70, 100, 100);
+        railroadDisplayPanel.add(empty1);
+        empty1.setBounds(120, 90, 120, 100);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        station2.setOpaque(false);
 
-        railroadDisplayPanel.add(jPanel4);
-        jPanel4.setBounds(1270, 230, 100, 100);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout station2Layout = new javax.swing.GroupLayout(station2);
+        station2.setLayout(station2Layout);
+        station2Layout.setHorizontalGroup(
+            station2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, station2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(station2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        station2Layout.setVerticalGroup(
+            station2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(station2Layout.createSequentialGroup()
+                .addComponent(station2Label)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        railroadDisplayPanel.add(jPanel5);
-        jPanel5.setBounds(1030, 420, 100, 100);
+        railroadDisplayPanel.add(station2);
+        station2.setBounds(290, 90, 120, 100);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        empty2.setOpaque(false);
+
+        javax.swing.GroupLayout empty2Layout = new javax.swing.GroupLayout(empty2);
+        empty2.setLayout(empty2Layout);
+        empty2Layout.setHorizontalGroup(
+            empty2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, empty2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(empty2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        empty2Layout.setVerticalGroup(
+            empty2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(empty2Layout.createSequentialGroup()
+                .addComponent(empty2Label)
+                .addGap(0, 100, Short.MAX_VALUE))
         );
 
-        railroadDisplayPanel.add(jPanel6);
-        jPanel6.setBounds(660, 420, 100, 100);
+        railroadDisplayPanel.add(empty2);
+        empty2.setBounds(480, 90, 120, 100);
+
+        station3.setOpaque(false);
+
+        javax.swing.GroupLayout station3Layout = new javax.swing.GroupLayout(station3);
+        station3.setLayout(station3Layout);
+        station3Layout.setHorizontalGroup(
+            station3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, station3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(station3Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        station3Layout.setVerticalGroup(
+            station3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(station3Layout.createSequentialGroup()
+                .addComponent(station3Label)
+                .addGap(0, 100, Short.MAX_VALUE))
+        );
+
+        railroadDisplayPanel.add(station3);
+        station3.setBounds(650, 90, 120, 100);
+
+        empty3.setOpaque(false);
+
+        javax.swing.GroupLayout empty3Layout = new javax.swing.GroupLayout(empty3);
+        empty3.setLayout(empty3Layout);
+        empty3Layout.setHorizontalGroup(
+            empty3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, empty3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(empty3Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        empty3Layout.setVerticalGroup(
+            empty3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(empty3Layout.createSequentialGroup()
+                .addComponent(empty3Label)
+                .addGap(0, 100, Short.MAX_VALUE))
+        );
+
+        railroadDisplayPanel.add(empty3);
+        empty3.setBounds(840, 90, 120, 100);
+
+        station4.setOpaque(false);
+
+        javax.swing.GroupLayout station4Layout = new javax.swing.GroupLayout(station4);
+        station4.setLayout(station4Layout);
+        station4Layout.setHorizontalGroup(
+            station4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, station4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(station4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        station4Layout.setVerticalGroup(
+            station4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(station4Layout.createSequentialGroup()
+                .addComponent(station4Label)
+                .addGap(0, 100, Short.MAX_VALUE))
+        );
+
+        railroadDisplayPanel.add(station4);
+        station4.setBounds(1010, 90, 120, 100);
+
+        empty4.setOpaque(false);
+
+        javax.swing.GroupLayout empty4Layout = new javax.swing.GroupLayout(empty4);
+        empty4.setLayout(empty4Layout);
+        empty4Layout.setHorizontalGroup(
+            empty4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, empty4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(empty4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        empty4Layout.setVerticalGroup(
+            empty4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(empty4Layout.createSequentialGroup()
+                .addComponent(empty4Label)
+                .addGap(0, 100, Short.MAX_VALUE))
+        );
+
+        railroadDisplayPanel.add(empty4);
+        empty4.setBounds(1200, 90, 120, 100);
+
+        station5.setOpaque(false);
+
+        javax.swing.GroupLayout station5Layout = new javax.swing.GroupLayout(station5);
+        station5.setLayout(station5Layout);
+        station5Layout.setHorizontalGroup(
+            station5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(station5Layout.createSequentialGroup()
+                .addComponent(station5Label, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
+        );
+        station5Layout.setVerticalGroup(
+            station5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(station5Layout.createSequentialGroup()
+                .addComponent(station5Label)
+                .addGap(0, 120, Short.MAX_VALUE))
+        );
+
+        railroadDisplayPanel.add(station5);
+        station5.setBounds(1270, 220, 100, 120);
+
+        empty5.setOpaque(false);
+
+        javax.swing.GroupLayout empty5Layout = new javax.swing.GroupLayout(empty5);
+        empty5.setLayout(empty5Layout);
+        empty5Layout.setHorizontalGroup(
+            empty5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, empty5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(empty5Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        empty5Layout.setVerticalGroup(
+            empty5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(empty5Layout.createSequentialGroup()
+                .addComponent(empty5Label)
+                .addGap(0, 100, Short.MAX_VALUE))
+        );
+
+        railroadDisplayPanel.add(empty5);
+        empty5.setBounds(1200, 400, 120, 100);
+
+        station6.setOpaque(false);
+
+        javax.swing.GroupLayout station6Layout = new javax.swing.GroupLayout(station6);
+        station6.setLayout(station6Layout);
+        station6Layout.setHorizontalGroup(
+            station6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, station6Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(station6Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        station6Layout.setVerticalGroup(
+            station6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(station6Layout.createSequentialGroup()
+                .addComponent(station6Label)
+                .addGap(0, 100, Short.MAX_VALUE))
+        );
+
+        railroadDisplayPanel.add(station6);
+        station6.setBounds(1010, 410, 120, 100);
+
+        empty6.setOpaque(false);
+
+        javax.swing.GroupLayout empty6Layout = new javax.swing.GroupLayout(empty6);
+        empty6.setLayout(empty6Layout);
+        empty6Layout.setHorizontalGroup(
+            empty6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, empty6Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(empty6Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        empty6Layout.setVerticalGroup(
+            empty6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(empty6Layout.createSequentialGroup()
+                .addComponent(empty6Label)
+                .addGap(0, 100, Short.MAX_VALUE))
+        );
+
+        railroadDisplayPanel.add(empty6);
+        empty6.setBounds(840, 400, 120, 100);
+
+        station7.setOpaque(false);
+
+        javax.swing.GroupLayout station7Layout = new javax.swing.GroupLayout(station7);
+        station7.setLayout(station7Layout);
+        station7Layout.setHorizontalGroup(
+            station7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, station7Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(station7Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        station7Layout.setVerticalGroup(
+            station7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(station7Layout.createSequentialGroup()
+                .addComponent(station7Label)
+                .addGap(0, 100, Short.MAX_VALUE))
+        );
+
+        railroadDisplayPanel.add(station7);
+        station7.setBounds(650, 410, 120, 100);
+
+        empty7.setOpaque(false);
+
+        javax.swing.GroupLayout empty7Layout = new javax.swing.GroupLayout(empty7);
+        empty7.setLayout(empty7Layout);
+        empty7Layout.setHorizontalGroup(
+            empty7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, empty7Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(empty7Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        empty7Layout.setVerticalGroup(
+            empty7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(empty7Layout.createSequentialGroup()
+                .addComponent(empty7Label)
+                .addGap(0, 100, Short.MAX_VALUE))
+        );
+
+        railroadDisplayPanel.add(empty7);
+        empty7.setBounds(480, 400, 120, 100);
+
+        station8.setOpaque(false);
+
+        javax.swing.GroupLayout station8Layout = new javax.swing.GroupLayout(station8);
+        station8.setLayout(station8Layout);
+        station8Layout.setHorizontalGroup(
+            station8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, station8Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(station8Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        station8Layout.setVerticalGroup(
+            station8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(station8Layout.createSequentialGroup()
+                .addComponent(station8Label)
+                .addGap(0, 100, Short.MAX_VALUE))
+        );
+
+        railroadDisplayPanel.add(station8);
+        station8.setBounds(290, 410, 120, 100);
+
+        empty8.setOpaque(false);
+
+        javax.swing.GroupLayout empty8Layout = new javax.swing.GroupLayout(empty8);
+        empty8.setLayout(empty8Layout);
+        empty8Layout.setHorizontalGroup(
+            empty8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, empty8Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(empty8Label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        empty8Layout.setVerticalGroup(
+            empty8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(empty8Layout.createSequentialGroup()
+                .addComponent(empty8Label)
+                .addGap(0, 100, Short.MAX_VALUE))
+        );
+
+        railroadDisplayPanel.add(empty8);
+        empty8.setBounds(120, 400, 120, 100);
 
         backgroundGrass1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intr/os/mco2/Pictures/railroad background.png"))); // NOI18N
         railroadDisplayPanel.add(backgroundGrass1);
@@ -567,6 +833,83 @@ public class RailroadView extends javax.swing.JFrame implements Runnable {
     public ArrayList <JLabel> getStatusLabels(){
         return this.labels;
     }
+    
+    public ArrayList <JPanel> getBlocks(){
+        return this.blocks;
+    }
+    
+    public ArrayList <JLabel> getBlockLabels(){
+        return this.blockLabels;
+    }
+    
+    public ImageIcon getThomas(){
+        return this.thomas;
+    }
+    
+    public ImageIcon getThomasUp(){
+        return this.thomasUp;
+    }
+    
+    public ImageIcon getThomasDown(){
+        return this.thomasDown;
+    }
+    
+    public ImageIcon getThomasLeft(){
+        return this.thomasLeft;
+    }
+    
+    public void addToLabels(){
+        labels.add(trainLabel1);
+        labels.add(trainLabel2);
+        labels.add(trainLabel3);
+        labels.add(trainLabel4);
+        labels.add(trainLabel5);
+        labels.add(trainLabel6);
+        labels.add(trainLabel7);
+        labels.add(trainLabel8);            
+        labels.add(trainLabel9);
+        labels.add(trainLabel10);
+        labels.add(trainLabel11);
+        labels.add(trainLabel12);
+        labels.add(trainLabel13);
+        labels.add(trainLabel14);
+        labels.add(trainLabel15);
+        labels.add(trainLabel16);
+    }
+    
+    public void addToBlocks(){
+        for (Component component : railroadDisplayPanel.getComponents()) {
+            if(component instanceof JPanel){
+                blocks.add((JPanel)component);
+                
+            }
+        }
+    }
+    
+    public void addToBlockLabels(){
+        for(int i = 0; i < 16; i++){
+            blockLabels.add((JLabel) blocks.get(i).getComponent(0));
+        }
+    }
+    
+    public void modelUpdated(){
+        for(int i = 0; i < 16; i++){
+            if(disp.getArea(i).trainPresent == true){
+                if(i == 0){
+                    blockLabels.get(i).setIcon(thomasUp);
+                }else if(i == 8){
+                    blockLabels.get(i).setIcon(thomasDown);
+                }else if(i > 8){
+                    blockLabels.get(i).setIcon(thomasLeft);
+                }else{
+                    blockLabels.get(i).setIcon(thomas);
+                }
+            }else{
+                blockLabels.get(i).setIcon(null);
+            }
+        }
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -608,6 +951,22 @@ public class RailroadView extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel backgroundGrass1;
     private javax.swing.JButton createPassengerButton;
     private javax.swing.JButton createTrainButton;
+    private javax.swing.JPanel empty1;
+    private javax.swing.JLabel empty1Label;
+    private javax.swing.JPanel empty2;
+    private javax.swing.JLabel empty2Label;
+    private javax.swing.JPanel empty3;
+    private javax.swing.JLabel empty3Label;
+    private javax.swing.JPanel empty4;
+    private javax.swing.JLabel empty4Label;
+    private javax.swing.JPanel empty5;
+    private javax.swing.JLabel empty5Label;
+    private javax.swing.JPanel empty6;
+    private javax.swing.JLabel empty6Label;
+    private javax.swing.JPanel empty7;
+    private javax.swing.JLabel empty7Label;
+    private javax.swing.JPanel empty8;
+    private javax.swing.JLabel empty8Label;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -625,17 +984,27 @@ public class RailroadView extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel railroadDisplayPanel;
     private javax.swing.JLayeredPane railroadLayeredPane;
     private javax.swing.JSpinner seatSpinner;
+    private javax.swing.JPanel station1;
+    private javax.swing.JLabel station1Label;
+    private javax.swing.JPanel station2;
+    private javax.swing.JLabel station2Label;
+    private javax.swing.JPanel station3;
+    private javax.swing.JLabel station3Label;
+    private javax.swing.JPanel station4;
+    private javax.swing.JLabel station4Label;
+    private javax.swing.JPanel station5;
+    private javax.swing.JLabel station5Label;
+    private javax.swing.JPanel station6;
+    private javax.swing.JLabel station6Label;
+    private javax.swing.JPanel station7;
+    private javax.swing.JLabel station7Label;
+    private javax.swing.JPanel station8;
+    private javax.swing.JLabel station8Label;
     private javax.swing.JPanel statusPanel;
     private javax.swing.JLabel trainLabel1;
     private javax.swing.JLabel trainLabel10;
@@ -658,5 +1027,7 @@ public class RailroadView extends javax.swing.JFrame implements Runnable {
     @Override
     public void run() {
         System.out.println("gui running");
+        while(true)
+        modelUpdated();
     }
 }

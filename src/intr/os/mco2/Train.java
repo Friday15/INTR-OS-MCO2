@@ -145,6 +145,7 @@ public class Train implements Runnable{
                 
                 currentArea.RemoveTrain();
                 this.currentArea = currentArea.nextArea;        //moves to next area
+                currentArea.TrainArrives(this);
                 System.out.println("moved to next area");
                 
                 disembarkChance = rand.nextInt(100)+1;

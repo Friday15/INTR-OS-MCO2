@@ -38,8 +38,7 @@ public class Controller {
                     ((Station) chosenArea).CreatePassengers();
                 }
             }  
-        }
-        
+        }   
     }
     
     class TrainListener implements ActionListener{
@@ -52,12 +51,22 @@ public class Controller {
                 
                 if(chosenArea.trainPresent == false && chosenArea.currentTrain == null){
                     int chosenTotalSeats = (Integer) rv.getSeatSpinner().getValue();
-                    rv.getStatusLabels().get(disp.getTrainCount()).setText("hi");
+                    //rv.getStatusLabels().get(disp.getTrainCount()).setText("hi");
                     disp.CreateTrain(chosenArea, chosenTotalSeats);
+                    
+                    if(rv.getAreaList().getSelectedIndex() == 0){
+                        rv.getBlockLabels().get(rv.getAreaList().getSelectedIndex()).setIcon(rv.getThomasUp());
+                    }else if(rv.getAreaList().getSelectedIndex() == 8){
+                        rv.getBlockLabels().get(rv.getAreaList().getSelectedIndex()).setIcon(rv.getThomasDown());
+                    }else if(rv.getAreaList().getSelectedIndex() > 8){
+                        rv.getBlockLabels().get(rv.getAreaList().getSelectedIndex()).setIcon(rv.getThomasLeft());
+                    }else{
+                        rv.getBlockLabels().get(rv.getAreaList().getSelectedIndex()).setIcon(rv.getThomas());
+                    }
                     
                 }
             }
-        }
-        
+        }        
     }
+    
 }
