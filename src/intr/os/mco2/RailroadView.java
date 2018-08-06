@@ -54,10 +54,10 @@ public class RailroadView extends javax.swing.JFrame implements Runnable {
         addToLabels();
         addToBlocks();
         addToBlockLabels();
-        for(int i = 0; i < 16; i++)
-            labels.get(i).setText(((Integer)i).toString());
+//        for(int i = 0; i < 16; i++)
+//            labels.get(i).setText(((Integer)i).toString());
         
-        blockLabels.get(8).setText("yeeeeet");
+        //blockLabels.get(8).setText("yeeeeet");
         thomas = new ImageIcon(new ImageIcon(getClass().getResource("Pictures\\thomas.png")).getImage());
         thomasUp = new ImageIcon(new ImageIcon(getClass().getResource("Pictures\\thomas up.png")).getImage());
         thomasDown = new ImageIcon(new ImageIcon(getClass().getResource("Pictures\\thomas down.png")).getImage());

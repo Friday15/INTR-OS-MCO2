@@ -36,17 +36,18 @@ public class Passenger implements Runnable{
         System.out.println("boarding...");
         station.LockAcquire();
         station.PassengerBoarded(this);
-        station.LockRelease();
+        //station.LockRelease();
         
         station.currentTrain.LockAcquire();
         station.currentTrain.subCurrCount();
-        if(station.currentTrain.getCurrCount() == 0){
+        System.out.println("is empty: "+station.getPassengers().isEmpty());
+        if(station.currentTrain.getCurrCount() == 0 || station.getPassengers().isEmpty()){
             station.LockAcquire();
             station.CondSignal();
             station.LockRelease();
         }
         station.currentTrain.LockRelease();
-
+        station.LockRelease();
         currentStation = null;                          //inside the train already
     }
 

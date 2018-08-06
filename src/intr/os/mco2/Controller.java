@@ -51,7 +51,7 @@ public class Controller {
                 
                 if(chosenArea.trainPresent == false && chosenArea.currentTrain == null){
                     int chosenTotalSeats = (Integer) rv.getSeatSpinner().getValue();
-                    //rv.getStatusLabels().get(disp.getTrainCount()).setText("hi");
+                    rv.getStatusLabels().get(disp.getTrainCount()).setText("active");
                     disp.CreateTrain(chosenArea, chosenTotalSeats);
                     
                     if(rv.getAreaList().getSelectedIndex() == 0){

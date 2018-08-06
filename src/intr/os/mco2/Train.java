@@ -116,12 +116,15 @@ public class Train implements Runnable{
         boolean disembark = false;
         Random rand = new Random();
         int disembarkChance = rand.nextInt(100)+1;                  //chance for a passenger to disembark
-        if(disembarkChance % 3 == 0){
-            disembark = true;
+        if(this.currCount == this.totalCount){
+            if(disembarkChance % 3 == 0){
+                disembark = true;
+            }
         }
-        System.out.println(disembark);
         
-        while((this.currCount == 0 && disembark == false && currentArea.getPassengers() != null)|| !(currentArea instanceof Station)){
+        System.out.println("disembark: "+disembark);
+        //if(this.currCount == 0)
+        while((disembark == false && currentArea.getPassengers().isEmpty())|| !(currentArea instanceof Station)){
             
             if(currentArea.getPassengers() != null){
                 if(!(currentArea.getPassengers().isEmpty())){                   //move if instanceof EmptyArea

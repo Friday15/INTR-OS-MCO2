@@ -5,6 +5,8 @@
  */
 package intr.os.mco2;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Ashen One
@@ -14,6 +16,7 @@ public class EmptyArea extends Area{
     
     public EmptyArea(){
         RemoveTrain();
+        passengers = new ArrayList();
         this.LockInit();
         this.CondInit();
     }
